@@ -737,7 +737,13 @@
 
         <div class="solution-grid">
           <div class="solution-image">
-            <img src="ui/upload-demo.png" alt="건전지 이미지 업로드 예시"
+              <img 
+                  src="ui/upload-demo.png" 
+                  alt="건전지 이미지 업로드 예시"
+                  width="850"
+                  style="max-width:100%; height:auto;"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" 
+                />
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
             <div class="image-fallback">
               <div class="icon">📷</div>
