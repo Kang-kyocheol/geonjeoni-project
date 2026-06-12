@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>건전이 프로젝트 | 성북구 폐건전지 자원순환</title>
+
+  <style>
+    :root {
+      --green: #2f7d32;
+      --green-light: #eaf5ec;
+      --green-soft: #f6faf7;
+      --text: #1f2933;
+      --sub: #667085;
+      --line: #e5e7eb;
+      --white: #ffffff;
+      --radius: 22px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--green);
+      font-size: 22px;
+    }
+
+    .logo img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .logo-fallback {
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--green);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 15px;
+      color: #374151;
+    }
+
+    .menu a:hover {
+      color: var(--green);
+    }
+
+    .github-btn {
+      padding: 10px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-weight: 700;
+      background: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 96px 0 88px;
+      background:
+        radial-gradient(circle at 85% 20%, #eef8ef 0, transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #f8fbf8 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--green-light);
+      color: var(--green);
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+      margin-bottom: 28px;
+    }
+
+    h1 span {
+      color: var(--green);
+    }
+
+    .hero-text {
+      font-size: 19px;
+      color: #4b5563;
+      max-width: 560px;
+      margin-bottom: 36px;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 14px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: var(--green);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(47, 125, 50, 0.18);
+    }
+
+    .btn-line {
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .btn-line:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+      border-radius: 34px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: 0 28px 80px rgba(31, 41, 51, 0.08);
+      overflow: hidden;
+      padding: 36px;
+    }
+
+    .hero-visual img {
+      height: 100%;
+      max-height: 350px;
+      object-fit: contain;
+    }
+
+    .image-fallback {
+      height: 330px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      background: var(--green-soft);
+      border-radius: 26px;
+      color: var(--green);
+      font-weight: 900;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    .image-fallback .icon {
+      font-size: 80px;
+      line-height: 1;
+    }
+
+    .mini-card {
+      position: absolute;
+      left: 32px;
+      bottom: 32px;
+      right: 32px;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+    }
+
+    .mini-card strong {
+      color: var(--green);
+    }
+
+    /* Section */
+    section {
+      padding: 92px 0;
+    }
+
+    section.border {
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .section-desc {
+      color: var(--sub);
+      max-width: 640px;
+      word-break: keep-all;
+    }
+
+    /* Problem */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .problem-card {
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .number {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 30px;
+    }
+
+    .problem-card h3 {
+      font-size: 22px;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .problem-card p {
+      color: var(--sub);
+      word-break: keep-all;
+    }
+
+    /* Solution */
+    .solution {
+      background: var(--green-soft);
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .solution-image {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 30px;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solution-image img {
+      max-height: 280px;
+      object-fit: contain;
+    }
+
+    .solution-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .solution-item {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: var(--white);
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .solution-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: var(--green-light);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .solution-item h3 {
+      font-size: 21px;
+      margin-bottom: 6px;
+    }
+
+    .solution-item p {
+      color: var(--sub);
+      word-break: keep-all;
+    }
+
+    /* Flow */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .flow-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 230px;
+    }
+
+    .flow-card .step {
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 40px;
+    }
+
+    .flow-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .flow-card p {
+      color: var(--sub);
+      font-size: 15px;
+      word-break: keep-all;
+    }
+
+    /* Image strip */
+    .image-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .image-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .image-card .thumb {
+      height: 220px;
+      background: var(--green-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-card img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-card-body {
+      padding: 22px;
+    }
+
+    .image-card-body h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .image-card-body p {
+      color: var(--sub);
+      font-size: 15px;
+      word-break: keep-all;
+    }
+
+    /* Team */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .member {
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--green-light);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 20px;
+      margin-bottom: 22px;
+    }
+
+    .member h3 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .role {
+      color: var(--green);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .member p {
+      color: var(--sub);
+      word-break: keep-all;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 80px 0;
+      background: #103d22;
+      color: var(--white);
+    }
+
+    .cta-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .cta h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .cta p {
+      color: rgba(255, 255, 255, 0.72);
+      word-break: keep-all;
+    }
+
+    .cta .btn-line {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
+      min-width: 190px;
+    }
+
+    .cta .btn-line:hover {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    footer {
+      padding: 30px 0;
+      color: var(--sub);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .menu {
+        display: none;
+      }
+
+      .hero {
+        padding: 72px 0 64px;
+      }
+
+      .hero-grid,
+      .solution-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .hero-visual {
+        min-height: 320px;
+      }
+
+      .problem-grid,
+      .flow-grid,
+      .image-strip,
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .cta-box {
+        display: block;
+      }
+
+      .cta .btn {
+        margin-top: 28px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .hero-visual {
+        padding: 22px;
+      }
+
+      .mini-card {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo" aria-label="건전이 홈">
+        <img src="ui/logo.png" alt="건전이 로고" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="logo-fallback">▯</span>
+        <span>건전이</span>
+      </a>
+
+      <nav class="menu">
+        <a href="#about">프로젝트 소개</a>
+        <a href="#solution">핵심 기능</a>
+        <a href="#flow">진행 방식</a>
+        <a href="#team">팀 소개</a>
+        <a href="https://github.com/" target="_blank" class="github-btn">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">성북구와 함께하는 폐건전지 자원순환 프로젝트</div>
+
+          <h1>
+            버려지는 건전지,<br />
+            <span>다시 순환되는</span><br />
+            지역 데이터로.
+          </h1>
+
+          <p class="hero-text">
+            건전이는 성북구의 폐건전지와 배터리 분리배출 문제를
+            더 쉽고 안전하게 해결하기 위한 청년 자원순환 프로젝트입니다.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#about" class="btn btn-primary">프로젝트 보기</a>
+            <a href="#solution" class="btn btn-line">핵심 기능 보기</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="ui/hero-battery.png" alt="건전이 프로젝트 대표 이미지"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="image-fallback">
+            <div class="icon">🔋</div>
+            <div>ui/hero-battery.png</div>
+          </div>
+
+          <div class="mini-card">
+            <strong>건전이 프로젝트</strong><br />
+            AI 이미지 분류 · 수거함 안내 · 분리배출 교육 · 데이터 시각화
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About / Problem -->
+    <section id="about" class="border">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">왜 건전이인가요?</h2>
+            <p class="section-desc">
+              폐건전지와 폐배터리는 생활 속에서 쉽게 발생하지만,
+              종류별 배출 방법을 정확히 알기 어렵고 내장형 배터리는
+              일반 쓰레기처럼 버려지는 경우가 많습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="problem-grid">
+          <article class="problem-card">
+            <div class="number">01</div>
+            <h3>분리배출 인식 부족</h3>
+            <p>
+              일반 건전지, 보조배터리, 내장형 배터리의 배출 방식이 달라
+              주민들이 쉽게 판단하기 어렵습니다.
+            </p>
+          </article>
+
+          <article class="problem-card">
+            <div class="number">02</div>
+            <h3>화재 위험</h3>
+            <p>
+              리튬계 배터리가 일반 폐기물과 섞이면 압착·충격 과정에서
+              발열 또는 화재 위험이 커질 수 있습니다.
+            </p>
+          </article>
+
+          <article class="problem-card">
+            <div class="number">03</div>
+            <h3>수거 데이터 부족</h3>
+            <p>
+              지역 내 배출 현황과 수거 흐름을 데이터로 확인하기 어려워
+              지속적인 개선 방향을 잡기 어렵습니다.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution -->
+    <section id="solution" class="solution">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">건전이가 제안하는 방법</h2>
+            <p class="section-desc">
+              이미지를 기반으로 배터리 종류를 구분하고,
+              성북구 주민이 바로 이해할 수 있는 배출 안내와 교육 콘텐츠를 제공합니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="solution-grid">
+          <div class="solution-image">
+            <img src="ui/upload-demo.png" alt="건전지 이미지 업로드 예시"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="image-fallback">
+              <div class="icon">📷</div>
+              <div>ui/upload-demo.png</div>
+            </div>
+          </div>
+
+          <div class="solution-list">
+            <article class="solution-item">
+              <div class="solution-icon">AI</div>
+              <div>
+                <h3>건전지 이미지 분류</h3>
+                <p>
+                  사용자가 촬영한 사진을 바탕으로 일반 건전지, 코인셀,
+                  보조배터리, 내장형 배터리 등을 구분합니다.
+                </p>
+              </div>
+            </article>
+
+            <article class="solution-item">
+              <div class="solution-icon">📍</div>
+              <div>
+                <h3>수거함 정보 안내</h3>
+                <p>
+                  성북구 내 폐건전지 수거함 위치와 배출 가능 품목을
+                  한눈에 확인할 수 있도록 안내합니다.
+                </p>
+              </div>
+            </article>
+
+            <article class="solution-item">
+              <div class="solution-icon">📊</div>
+              <div>
+                <h3>수거 현황 데이터화</h3>
+                <p>
+                  주민 참여, 수거량, 분류 결과를 시각화하여
+                  지역 자원순환 활동의 변화를 확인합니다.
+                </p>
+              </div>
+            </article>
+
+            <article class="solution-item">
+              <div class="solution-icon">📘</div>
+              <div>
+                <h3>교육 콘텐츠 제공</h3>
+                <p>
+                  초등학생과 주민이 쉽게 이해할 수 있도록
+                  그림, 카드뉴스, 퀴즈형 콘텐츠를 제공합니다.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flow -->
+    <section id="flow" class="border">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">프로젝트 진행 방식</h2>
+            <p class="section-desc">
+              건전이는 단순한 안내 웹사이트가 아니라,
+              분류부터 교육, 데이터 기록까지 연결하는 소개형 플랫폼을 목표로 합니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="flow-grid">
+          <article class="flow-card">
+            <div class="step">STEP 01</div>
+            <h3>사진 업로드</h3>
+            <p>주민이 폐건전지 또는 배터리 사진을 업로드합니다.</p>
+          </article>
+
+          <article class="flow-card">
+            <div class="step">STEP 02</div>
+            <h3>종류 분류</h3>
+            <p>AI 또는 사전 분류 기준을 통해 배터리 종류를 판별합니다.</p>
+          </article>
+
+          <article class="flow-card">
+            <div class="step">STEP 03</div>
+            <h3>배출 방법 안내</h3>
+            <p>해당 배터리에 맞는 안전한 배출 방법을 안내합니다.</p>
+          </article>
+
+          <article class="flow-card">
+            <div class="step">STEP 04</div>
+            <h3>데이터 축적</h3>
+            <p>분류 결과와 참여 데이터를 시각화하여 프로젝트 현황을 보여줍니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Materials -->
+    <section class="border">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">주요 콘텐츠</h2>
+            <p class="section-desc">
+              실제 웹사이트에는 수거함 사진, 배터리 종류별 예시 이미지,
+              교육 자료 이미지를 넣으면 좋습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="image-strip">
+          <article class="image-card">
+            <div class="thumb">
+              <img src="ui/collection-box.png" alt="수거함 안내 이미지"
+                onerror="this.style.display='none'; this.parentElement.innerHTML='수거함 이미지';" />
+            </div>
+            <div class="image-card-body">
+              <h3>수거함 안내</h3>
+              <p>성북구 내 폐건전지 수거함 위치와 배출 가능 품목을 안내합니다.</p>
+            </div>
+          </article>
+
+          <article class="image-card">
+            <div class="thumb">
+              <img src="ui/education.png" alt="교육 콘텐츠 이미지"
+                onerror="this.style.display='none'; this.parentElement.innerHTML='교육 콘텐츠 이미지';" />
+            </div>
+            <div class="image-card-body">
+              <h3>교육 콘텐츠</h3>
+              <p>초등학생과 주민이 쉽게 이해할 수 있는 분리배출 자료를 제공합니다.</p>
+            </div>
+          </article>
+
+          <article class="image-card">
+            <div class="thumb">
+              <img src="ui/hero-battery.png" alt="배터리 분류 이미지"
+                onerror="this.style.display='none'; this.parentElement.innerHTML='배터리 분류 이미지';" />
+            </div>
+            <div class="image-card-body">
+              <h3>배터리 분류</h3>
+              <p>건전지, 코인셀, 보조배터리, 내장형 배터리의 차이를 안내합니다.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="border">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">팀 소개</h2>
+            <p class="section-desc">
+              건전이는 성북구의 지속 가능한 폐건전지 분리배출 문화를 만들기 위해
+              청년들이 함께 기획한 프로젝트입니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-grid">
+          <article class="member">
+            <div class="avatar">강</div>
+            <h3>강교철</h3>
+            <div class="role">팀장</div>
+            <p>
+              프로젝트 기획, 웹사이트 구성, AI 분류 시스템 방향 설계를 담당합니다.
+            </p>
+          </article>
+
+          <article class="member">
+            <div class="avatar">조</div>
+            <h3>조재영</h3>
+            <div class="role">조원</div>
+            <p>
+              폐건전지 분리배출 자료 조사와 정책·제도 분석을 담당합니다.
+            </p>
+          </article>
+
+          <article class="member">
+            <div class="avatar">최</div>
+            <h3>최선영</h3>
+            <div class="role">조원</div>
+            <p>
+              주민 교육 콘텐츠와 프로젝트 홍보 자료 구성을 담당합니다.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container cta-box">
+        <div>
+          <h2>작은 건전지 하나부터<br />성북구의 순환이 시작됩니다.</h2>
+          <p>
+            건전이 프로젝트는 GitHub 기반으로 공개 운영되며,
+            누구나 프로젝트 진행 현황과 개발 과정을 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <a href="https://github.com/" target="_blank" class="btn btn-line">
+          GitHub에서 보기 →
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 건전이 프로젝트. Green Ambassador.</div>
+      <div>Seongbuk-gu Battery Recycling Project</div>
+    </div>
+  </footer>
+</body>
+</html>
